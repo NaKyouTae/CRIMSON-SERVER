@@ -21,7 +21,7 @@ Spring Boot Kotlin 기반의 서버 애플리케이션입니다.
 
 ```bash
 # PostgreSQL 컨테이너 시작
-docker-compose -f docker-compose-postgres.yml up -d postgres
+docker-compose -f docker-compose.yml up -d postgres
 
 # 연결 테스트
 ./test-postgres-connection.sh
@@ -59,11 +59,11 @@ export LIQUIBASE_RUN=true
 
 ```bash
 # 전체 서비스 실행
-docker-compose -f docker-compose-postgres.yml up -d
+docker-compose -f docker-compose.yml up -d
 
 # 애플리케이션만 빌드 및 실행
 docker build -t crimson-server:local .
-docker-compose -f docker-compose-postgres.yml up crimson-service
+docker-compose -f docker-compose.yml up crimson-service
 ```
 
 ## Liquibase 마이그레이션

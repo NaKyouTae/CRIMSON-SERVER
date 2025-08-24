@@ -11,9 +11,9 @@ spring:
         use_sql_comments: ${SHOW_LOG} # SQL 주석 /* */ 출력
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME:-crimson}
+    url: jdbc:postgresql://${DB_HOST}:5432/crimson
     driver-class-name: org.postgresql.Driver
-    username: ${DB_USER_NAME:-postgres}
+    username: postgres
     password: ${DB_PASSWORD}
     hikari:
       transaction-isolation: TRANSACTION_READ_COMMITTED
@@ -25,7 +25,7 @@ spring:
   #        connection-init-sql: set session aurora_read_replica_read_committed = ON;
 
 liquibase:
-  should-run: ${LIQUIBASE_RUN:-true}
+  should-run: ${LIQUIBASE_RUN}
   change-log: classpath:db/changelog/db.changelog-master.yml
 
 logging:
