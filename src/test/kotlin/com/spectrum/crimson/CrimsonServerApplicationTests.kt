@@ -1,4 +1,4 @@
-package com.spectrum.crimsonserver
+package com.spectrum.crimson
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

@@ -1,6 +1,49 @@
 spring:
-  application:
-    name: crimson-server
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: ${SHOW_LOG} # SQL 로그 출력
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: ${SHOW_LOG} # SQL 포맷팅
+        highlight_sql: ${SHOW_LOG} # ANSI 색상으로 SQL 하이라이트
+        use_sql_comments: ${SHOW_LOG} # SQL 주석 /* */ 출력
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME:-crimson}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER_NAME:-postgres}
+    password: ${DB_PASSWORD}
+    hikari:
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      connection-timeout: 20000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1200000
+  #        connection-init-sql: set session aurora_read_replica_read_committed = ON;
 
-server:
-  port: 8080
+liquibase:
+  should-run: ${LIQUIBASE_RUN:-true}
+  change-log: classpath:db/changelog/db.changelog-master.yml
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    org.hibernate.stat: debug
+    liquibase: debug
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        exclude: "*"
+    web:
+      base-path: /actuator
+      exposure:
+        include: info, health, prometheus, httptrace, metrics
+  metrics:
+    tags:
+      application: taghere-api

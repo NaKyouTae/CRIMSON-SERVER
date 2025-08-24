@@ -1,4 +1,4 @@
-package com.spectrum.crimsonserver
+package com.spectrum.crimson
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,0 +1,83 @@
+services:
+  crimson-service:
+    image: crimson-server:local
+    container_name: crimson-server
+    ports:
+      - "8080:8080"
+    env_file:
+      - docker-compose.env
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - crimson-network
+
+  mysql:
+    image: mysql:8.2.0
+    container_name: mysql
+    env_file:
+      - docker-compose.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --host-cache-size=0
+    networks:
+      - crimson-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  redis:
+    image: redis:8.2.0-alpine
+    container_name: redis
+    env_file:
+      - docker-compose.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --appendonly yes --save 900 1 --save 300 10 --save 60 10000
+    networks:
+      - crimson-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - crimson-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - crimson-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  crimson-network:
+    driver: bridge
