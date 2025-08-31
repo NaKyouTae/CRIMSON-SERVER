@@ -1,5 +1,5 @@
 package com.spectrum.crimson.common.exception
 
-class SpectrumException(
+class CrimsonException(
     message: String,
 ): RuntimeException(message)

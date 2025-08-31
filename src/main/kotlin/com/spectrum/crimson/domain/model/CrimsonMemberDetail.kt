@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import kotlin.collections.map
 
-data class SpectrumMemberDetail(
+data class CrimsonMemberDetail(
     private val member: Member,
     private val roles: List<MemberRole>,
 ) : UserDetails {
@@ -41,4 +41,5 @@ data class SpectrumMemberDetail(
     }
 
     fun getMemberId(): String = member.id
+    fun getEmail(): String = member.email
 }

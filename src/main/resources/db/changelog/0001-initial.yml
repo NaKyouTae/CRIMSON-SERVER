@@ -8,13 +8,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: VARCHAR(12)
+                  type: VARCHAR(28)
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: idx
-                  type: BIGINT
+                  type: BIGSERIAL
                   constraints:
                     unique: true
                     nullable: false
@@ -84,13 +84,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: VARCHAR(12)
+                  type: VARCHAR(28)
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: idx
-                  type: BIGINT
+                  type: BIGSERIAL
                   constraints:
                     unique: true
                     nullable: false
@@ -121,13 +121,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: VARCHAR(12)
+                  type: VARCHAR(28)
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: idx
-                  type: BIGINT
+                  type: BIGSERIAL
                   constraints:
                     unique: true
                     nullable: false

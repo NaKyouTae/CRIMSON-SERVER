@@ -1,7 +1,7 @@
 package com.spectrum.crimson.config.filter
 
 import com.spectrum.crimson.common.exception.JwtAuthException
-import com.spectrum.crimson.common.service.RedisBlackAccessTokenService
+import com.spectrum.crimson.service.redis.RedisBlackAccessTokenService
 import com.spectrum.crimson.common.utils.JwtTokenProvider
 import com.spectrum.crimson.domain.enums.MsgKOR
 import jakarta.servlet.FilterChain
@@ -18,7 +18,7 @@ class JwtAuthFilter(
 ) : OncePerRequestFilter() {
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        val excludePath = arrayOf("/api/user", "/actuator")
+        val excludePath = arrayOf("/api/auth", "/actuator")
         val path = request.requestURI
         return excludePath.any { path.startsWith(it) }
     }

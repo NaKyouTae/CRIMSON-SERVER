@@ -28,7 +28,7 @@ abstract class BaseEntity(idPrefix: String) : Persistable<String> {
     private val id: String = "$idPrefix${UlidCreator.getMonotonicUlid()}"
 
     @Column(unique = true, nullable = false, insertable = false, updatable = false)
-    val idx: Long? = null
+    val idx: Long = 0L
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

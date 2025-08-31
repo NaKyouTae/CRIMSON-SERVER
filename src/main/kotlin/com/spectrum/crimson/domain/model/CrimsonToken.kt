@@ -2,7 +2,7 @@ package com.spectrum.crimson.domain.model
 
 import com.spectrum.crimson.proto.Token
 
-data class SpectrumToken(
+data class CrimsonToken(
     val accessToken: String,
     val refreshToken: String,
 ) {

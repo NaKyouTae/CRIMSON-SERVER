@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "dto.proto";
+
+package com.spectrum.crimson.proto;
+
+option java_multiple_files = true;
+option java_package = "com.spectrum.crimson.proto";
+option java_outer_classname = "AuthProto";
+
+
+message MemberSignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message MemberSignInResult {
+  Token token = 1;
+}
+
+message MemberSignUpRequest {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string password = 4;
+}
+
+message MemberSignUpResult {
+  string id = 1;
+  string name = 2;
+}

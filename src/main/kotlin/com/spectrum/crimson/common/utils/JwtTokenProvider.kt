@@ -1,11 +1,11 @@
 package com.spectrum.crimson.common.utils
 
 import com.spectrum.crimson.common.exception.JwtAuthException
-import com.spectrum.crimson.common.exception.SpectrumException
+import com.spectrum.crimson.common.exception.CrimsonException
 import com.spectrum.crimson.common.service.MemberDetailsService
 import com.spectrum.crimson.domain.enums.MsgKOR
-import com.spectrum.crimson.domain.model.SpectrumToken
-import com.spectrum.crimson.domain.model.SpectrumMemberDetail
+import com.spectrum.crimson.domain.model.CrimsonToken
+import com.spectrum.crimson.domain.model.CrimsonMemberDetail
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -13,7 +13,6 @@ import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.PropertySource
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
@@ -32,7 +31,7 @@ class JwtTokenProvider(
     private val memberDetailsService: MemberDetailsService,
 ) {
 
-    fun generateToken(auth: Authentication): SpectrumToken {
+    fun generateToken(auth: Authentication): CrimsonToken {
         val claims = setClaims(auth)
         val issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS)
         val accessTokenExpiration = issuedAt.plus(accessTokenExpirationHours, ChronoUnit.DAYS)
@@ -51,7 +50,7 @@ class JwtTokenProvider(
             expiration = refreshTokenExpiration
         )
 
-        return SpectrumToken(
+        return CrimsonToken(
             accessToken = accessToken,
             refreshToken = refreshToken
         )
@@ -60,7 +59,7 @@ class JwtTokenProvider(
     fun reissueToken(
         auth: Authentication,
         originalRefreshToken: String
-    ): SpectrumToken {
+    ): CrimsonToken {
         val claims = setClaims(auth)
         val issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS)
         val accessTokenExpiration = issuedAt.plus(accessTokenExpirationHours, ChronoUnit.DAYS)
@@ -81,7 +80,7 @@ class JwtTokenProvider(
             expiration = refreshTokenExpirationDate
         )
 
-        return SpectrumToken(
+        return CrimsonToken(
             accessToken = accessToken,
             refreshToken = refreshToken
         )
@@ -89,8 +88,8 @@ class JwtTokenProvider(
 
     fun getAuthentication(token: String): Authentication {
         val claims = parseClaims(token)
-        val id = claims["id"].toString()
-        val principal = memberDetailsService.loadUserByUsername(id)
+        val email = claims["email"].toString()
+        val principal = memberDetailsService.loadUserByUsername(email)
         return UsernamePasswordAuthenticationToken(principal, "", ArrayList())
     }
 
@@ -118,9 +117,9 @@ class JwtTokenProvider(
         if (validateToken(cleanedToken)) {
             val claims = parseClaims(cleanedToken)
             return claims[field]
-                ?: throw SpectrumException(MsgKOR.INVALID_JWT_TOKEN.message)
+                ?: throw CrimsonException(MsgKOR.INVALID_JWT_TOKEN.message)
         } else {
-            throw SpectrumException(MsgKOR.INVALID_JWT_TOKEN.message)
+            throw CrimsonException(MsgKOR.INVALID_JWT_TOKEN.message)
         }
     }
 
@@ -130,7 +129,7 @@ class JwtTokenProvider(
             val claims = parseClaims(cleanedToken)
             return claims["roles"]
         } else {
-            throw SpectrumException(MsgKOR.INVALID_JWT_TOKEN.message)
+            throw CrimsonException(MsgKOR.INVALID_JWT_TOKEN.message)
         }
     }
 
@@ -172,10 +171,12 @@ class JwtTokenProvider(
 
     private fun setClaims(auth: Authentication): Map<String, Any> {
         val claims = mutableMapOf<String, Any>()
-        val id = (auth.principal as SpectrumMemberDetail).getMemberId()
+        val id = (auth.principal as CrimsonMemberDetail).getMemberId()
+        val email = (auth.principal as CrimsonMemberDetail).getEmail()
         val roles = auth.authorities.map { it.authority }
 
         claims["id"] = id
+        claims["email"] = email
         claims["roles"] = roles
         claims["jit"] = UUID.randomUUID().toString()
 

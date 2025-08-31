@@ -1,4 +1,4 @@
-package com.spectrum.crimson.common.service
+package com.spectrum.crimson.service.redis
 
 import com.spectrum.crimson.domain.redis.entity.RedisBlackAccessToken
 import com.spectrum.crimson.domain.redis.repository.RedisBlackAccessTokenRepository

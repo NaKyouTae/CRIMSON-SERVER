@@ -1,7 +1,7 @@
 package com.spectrum.crimson.config
 
 import com.spectrum.crimson.common.handler.JwtAuthEntryPoint
-import com.spectrum.crimson.common.service.RedisBlackAccessTokenService
+import com.spectrum.crimson.service.redis.RedisBlackAccessTokenService
 import com.spectrum.crimson.common.utils.JwtTokenProvider
 import com.spectrum.crimson.config.filter.JwtAuthFilter
 import com.spectrum.crimson.config.filter.JwtExceptionFilter
@@ -35,7 +35,7 @@ class SecurityConfig(
             .headers { it.frameOptions { frame -> frame.disable() } }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/api/member/**").permitAll()
+                    .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()
                     .anyRequest().authenticated()
             }
