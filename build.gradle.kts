@@ -1,9 +1,16 @@
+import com.google.protobuf.gradle.id
+
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.5.6-SNAPSHOT"
+    val kotlinVersion = "1.9.25"
+    val springBootVersion = "3.5.6-SNAPSHOT"
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    id("com.google.protobuf") version "0.9.4"
+    id("org.liquibase.gradle") version "2.0.4"
+    id("org.springframework.boot") version springBootVersion
     id("io.spring.dependency-management") version "1.1.7"
-    kotlin("plugin.jpa") version "1.9.25"
 }
 
 group = "com.spectrum"
@@ -23,12 +30,22 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    implementation("io.jsonwebtoken:jjwt-api:0.12.1")
+    implementation("io.jsonwebtoken:jjwt-impl:0.12.1")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.12.1")
+
+    implementation("org.liquibase:liquibase-core:4.31.0")
+
     implementation("com.github.f4b6a3:ulid-creator:5.2.3")
     implementation("org.liquibase:liquibase-core:4.31.0")
     implementation("org.postgresql:postgresql:42.7.7")
@@ -65,4 +82,46 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.protobuf:protobuf-gradle-plugin:0.9.4")
+    }
+}
+
+sourceSets {
+    main {
+//        proto {
+//            srcDir("src/main/proto")
+//        }
+        java {
+            srcDir("build/generated/source/proto/main/java")
+        }
+    }
+
+    test {
+//        proto {
+//            srcDir("src/main/proto")
+//        }
+        java {
+            srcDir("build/generated/source/proto/test/java")
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    generateProtoTasks {
+        all().forEach {
+            it.builtins {
+                id("kotlin")
+            }
+        }
+    }
 }

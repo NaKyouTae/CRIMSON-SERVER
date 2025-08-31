@@ -17,16 +17,23 @@ spring:
     password: ${DB_PASSWORD}
     hikari:
       transaction-isolation: TRANSACTION_READ_COMMITTED
-      connection-timeout: 20000
-      maximum-pool-size: 10
-      minimum-idle: 5
-      idle-timeout: 300000
-      max-lifetime: 1200000
   #        connection-init-sql: set session aurora_read_replica_read_committed = ON;
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
 
 liquibase:
   should-run: ${LIQUIBASE_RUN}
   change-log: classpath:db/changelog/db.changelog-master.yml
+
+jwt:
+  issuer: spectrum
+  secret-key: testSecretKey20230327testSecretKey20230327testSecretKey20230327
+  access:
+    expiration-hours: 1
+  refresh:
+    expiration-days: 7
 
 logging:
   level:

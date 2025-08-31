@@ -46,8 +46,11 @@ class DataSourceConfig {
             .apply {
                 poolName = "crimsonMain"
                 isAutoCommit = false
-                maxLifetime = 60000
-                maximumPoolSize = 20
+                idleTimeout = 0
+                maxLifetime = 1800000
+                minimumIdle = 10
+                maximumPoolSize = 10
+                connectionTimeout = 30000
             }
     }
 
@@ -64,7 +67,7 @@ class DataSourceConfig {
         factory.jpaVendorAdapter = HibernateJpaVendorAdapter()
         factory.dataSource = dataSource()
         factory.setPackagesToScan(
-            "com.crimson.domain.entity",
+            "com.spectrum.crimson.domain.entity",
         )
         factory.jpaPropertyMap.putAll(
             HibernateProperties()
