@@ -54,6 +54,6 @@ class Member(
         protected set
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private var mutableMemberItemGroups: MutableList<MemberItemGroup> = mutableListOf()
-    val memberItemGroups: List<MemberItemGroup> get() = mutableMemberItemGroups.toList()
+    private var mutableMemberPlaceGroups: MutableList<MemberPlaceGroup> = mutableListOf()
+    val memberPlaceGroups: List<MemberPlaceGroup> get() = mutableMemberPlaceGroups.toList()
 }

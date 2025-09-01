@@ -124,7 +124,7 @@ databaseChangeLog:
             unique: true
 
         - createTable:
-            tableName: member_item_group
+            tableName: member_place_group
             columns:
               - column:
                   name: id
@@ -139,7 +139,7 @@ databaseChangeLog:
                     unique: true
                     nullable: false
               - column:
-                  name: item_group_id
+                  name: place_group_id
                   type: VARCHAR(28)
                   constraints:
                     nullable: false
@@ -166,44 +166,44 @@ databaseChangeLog:
         - createIndex:
             columns:
               - column:
-                  name: item_group_id
-            indexName: idx_mig_item_group_id
-            tableName: member_item_group
+                  name: place_group_id
+            indexName: idx_mig_place_group_id
+            tableName: member_place_group
         - createIndex:
             columns:
               - column:
                   name: member_id
             indexName: idx_mig_member_id
-            tableName: member_item_group
+            tableName: member_place_group
         - createIndex:
             columns:
               - column:
                   name: role_id
             indexName: idx_mig_role_id
-            tableName: member_item_group
+            tableName: member_place_group
         - createIndex:
             columns:
               - column:
                   name: member_id
               - column:
-                  name: item_group_id
-            indexName: ux_mig_member_id_item_group_id
-            tableName: member_item_group
+                  name: place_group_id
+            indexName: ux_mig_member_id_place_group_id
+            tableName: member_place_group
             unique: true
         - createIndex:
             columns:
               - column:
                   name: member_id
               - column:
-                  name: item_group_id
+                  name: place_group_id
               - column:
                   name: role_id
-            indexName: ux_mig_member_item_group_role
-            tableName: member_item_group
+            indexName: ux_mig_member_place_group_role
+            tableName: member_place_group
             unique: true
 
         - createTable:
-            tableName: item_group
+            tableName: place_group
             columns:
               - column:
                   name: id
@@ -246,5 +246,5 @@ databaseChangeLog:
             columns:
               - column:
                   name: status
-            indexName: idx_item_group_status
-            tableName: item_group
+            indexName: idx_place_group_status
+            tableName: place_group

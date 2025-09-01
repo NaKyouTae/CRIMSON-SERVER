@@ -18,7 +18,7 @@ class MemberService(
     }
 
     @Transactional(readOnly = true)
-    fun findByMemberWithItemGroups(id: String): Member {
-        return memberRepository.findByIdWithItemGroups(id).orElseThrow { throw CrimsonException(MsgKOR.NOT_FOUND_USER.message) }
+    fun findByMemberWithPlaceGroups(id: String): Member {
+        return memberRepository.findByIdWithPlaceGroups(id).orElseThrow { throw CrimsonException(MsgKOR.NOT_FOUND_USER.message) }
     }
 }

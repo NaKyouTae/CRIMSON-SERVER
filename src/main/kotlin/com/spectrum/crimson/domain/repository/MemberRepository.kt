@@ -12,11 +12,13 @@ interface MemberRepository: JpaRepository<Member, String> {
     fun findByPhone(phone: String): Optional<Member>
     fun findByName(name: String): Optional<Member>
 
-    @Query("""
+    @Query(
+        """
         SELECT m FROM Member m
-        LEFT JOIN FETCH m.mutableMemberItemGroups mig
-        LEFT JOIN FETCH mig.itemGroup
+        LEFT JOIN FETCH m.mutableMemberPlaceGroups mig
+        LEFT JOIN FETCH mig.placeGroup
         WHERE m.id = :memberId
-    """)
-    fun findByIdWithItemGroups(memberId: String): Optional<Member>
+    """
+    )
+    fun findByIdWithPlaceGroups(memberId: String): Optional<Member>
 }

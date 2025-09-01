@@ -1,39 +1,39 @@
 package com.spectrum.crimson.service
 
 import com.spectrum.crimson.common.exception.CrimsonException
-import com.spectrum.crimson.domain.dto.ItemGroupCreateDto
-import com.spectrum.crimson.domain.dto.ItemGroupListDto
-import com.spectrum.crimson.domain.dto.MemberItemGroupCreateDto
-import com.spectrum.crimson.domain.entity.ItemGroup
+import com.spectrum.crimson.domain.dto.PlaceGroupCreateDto
+import com.spectrum.crimson.domain.dto.PlaceGroupListDto
+import com.spectrum.crimson.domain.dto.MemberPlaceGroupCreateDto
+import com.spectrum.crimson.domain.entity.PlaceGroup
 import com.spectrum.crimson.domain.enums.MsgKOR
 import com.spectrum.crimson.domain.enums.RoleName
 import com.spectrum.crimson.domain.extension.toProto
-import com.spectrum.crimson.domain.repository.ItemGroupRepository
+import com.spectrum.crimson.domain.repository.PlaceGroupRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class ItemGroupService(
+class PlaceGroupService(
     private val roleService: RoleService,
     private val memberService: MemberService,
-    private val itemGroupRepository: ItemGroupRepository,
-    private val memberItemGroupService: MemberItemGroupService,
+    private val placeGroupRepository: PlaceGroupRepository,
+    private val memberPlaceGroupService: MemberPlaceGroupService,
 ) {
 
     @Transactional(readOnly = true)
-    fun getItemGroup(memberId: String, itemGroupId: String): ItemGroup {
-        return itemGroupRepository.findAccessibleById(memberId, itemGroupId)
-            .orElseThrow { CrimsonException(MsgKOR.NOT_FOUND_ITEM_GROUP.message) }
+    fun getPlaceGroup(memberId: String, placeGroupId: String): PlaceGroup {
+        return placeGroupRepository.findAccessibleById(memberId, placeGroupId)
+            .orElseThrow { CrimsonException(MsgKOR.NOT_FOUND_PLACE_GROUP.message) }
     }
 
     @Transactional(readOnly = true)
-    fun getItemGroups(memberId: String): ItemGroupListDto {
+    fun getPlaceGroups(memberId: String): PlaceGroupListDto {
         val member = memberService.getMember(memberId)
-        val memberItemGroup = member.memberItemGroups
-        val itemGroups = memberItemGroup.map { it.itemGroup }
+        val memberPlaceGroup = member.memberPlaceGroups
+        val placeGroups = memberPlaceGroup.map { it.placeGroup }
 
-        return ItemGroupListDto(
-            itemGroups = itemGroups.map { it.toProto() }
+        return PlaceGroupListDto(
+            placeGroups = placeGroups.map { it.toProto() }
         )
     }
 
@@ -59,25 +59,25 @@ class ItemGroupService(
 //    }
 
     @Transactional
-    fun createItemGroup(dto: ItemGroupCreateDto): ItemGroup {
+    fun createPlaceGroup(dto: PlaceGroupCreateDto): PlaceGroup {
         val member = memberService.getMember(dto.memberId) ?: throw CrimsonException(MsgKOR.NOT_FOUND_USER.message)
 
-        val itemGroup = ItemGroup(
+        val placeGroup = PlaceGroup(
             name = dto.name,
             status = dto.status,
             description = dto.description,
         )
         val captainRole = roleService.getRoleByName(RoleName.CAPTAIN)
-        val createdItemGroup = itemGroupRepository.save(itemGroup)
+        val createdPlaceGroup = placeGroupRepository.save(placeGroup)
 
-        val memberItemGroupDto = MemberItemGroupCreateDto(
-            itemGroup = createdItemGroup,
+        val memberItemGroupDto = MemberPlaceGroupCreateDto(
+            placeGroup = createdPlaceGroup,
             member = member,
             role = captainRole,
         )
 
-        memberItemGroupService.createMemberItemGroup(memberItemGroupDto)
+        memberPlaceGroupService.createMemberPlaceGroup(memberItemGroupDto)
 
-        return createdItemGroup
+        return createdPlaceGroup
     }
 }

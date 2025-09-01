@@ -1,11 +1,8 @@
 package com.spectrum.crimson.domain.model
 
 import com.spectrum.crimson.domain.entity.Member
-import com.spectrum.crimson.domain.entity.MemberItemGroup
 import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import kotlin.collections.map
 
 data class CrimsonMemberDetail(
     private val member: Member,

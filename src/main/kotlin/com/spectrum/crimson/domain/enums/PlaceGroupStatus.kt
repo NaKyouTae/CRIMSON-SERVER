@@ -1,6 +1,6 @@
 package com.spectrum.crimson.domain.enums
 
-enum class ItemGroupStatus {
+enum class PlaceGroupStatus {
     PUBLIC,
     PRIVATE,
 }

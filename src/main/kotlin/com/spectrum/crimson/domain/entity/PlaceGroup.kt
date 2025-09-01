@@ -1,6 +1,6 @@
 package com.spectrum.crimson.domain.entity
 
-import com.spectrum.crimson.domain.enums.ItemGroupStatus
+import com.spectrum.crimson.domain.enums.PlaceGroupStatus
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -10,14 +10,14 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(
-    name = "item_group",
+    name = "place_group",
     indexes = [
-        Index(name = "idx_item_group_status", columnList = "status"),
+        Index(name = "idx_place_group_status", columnList = "status"),
     ]
 )
-class ItemGroup(
+class PlaceGroup(
     name: String,
-    status: ItemGroupStatus,
+    status: PlaceGroupStatus,
     description: String?,
 ): BaseEntity("IG") {
     @Column(name = "name", length = 2048, nullable = false)
@@ -26,7 +26,7 @@ class ItemGroup(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 32, nullable = false)
-    var status: ItemGroupStatus = status
+    var status: PlaceGroupStatus = status
         protected set
 
     @Column(name = "description", columnDefinition = "TEXT", nullable = true)

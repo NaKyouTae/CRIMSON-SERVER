@@ -3,8 +3,8 @@ package com.spectrum.crimson.domain.enums
 enum class MsgKOR(val message: String) {
     NOT_FOUND_USER("존재하지 않는 멤버입니다."),
     NOT_FOUND_CAPTAIN_ROLE("존재하지 않는 캡틴 권합입니다."),
-    NOT_FOUND_ITEM_GROUP("존재하지 않는 Item Group입니다."),
-    UNAUTHORIZED_ITEM_GROUP_ACCESS("허용된 멤버가 아닙니다."),
+    NOT_FOUND_PLACE_GROUP("존재하지 않는 장소 그룹 입니다."),
+    UNAUTHORIZED_PLACE_GROUP_ACCESS("허용된 멤버가 아닙니다."),
     FORBIDDEN("권한이 부족합니다."),
     ALREADY_EXIST_EMAIL("이미 존재하는 이메일 입니다."),
     ALREADY_EXIST_PHONE("이미 존재하는 전화번호 입니다."),

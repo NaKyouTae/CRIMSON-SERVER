@@ -10,26 +10,26 @@ import jakarta.persistence.UniqueConstraint
 
 @Entity
 @Table(
-    name = "member_item_group",
+    name = "member_place_group",
     uniqueConstraints = [
-        UniqueConstraint(name = "uq_mig_member_item_group_role", columnNames = ["member_id", "item_group_id", "role_id"])
+        UniqueConstraint(name = "uq_mig_member_place_group_role", columnNames = ["member_id", "place_group_id", "role_id"])
     ],
     indexes = [
         Index(name = "idx_mig_member_id", columnList = "member_id"),
         Index(name = "idx_mig_role_id", columnList = "role_id"),
-        Index(name = "idx_mig_item_group_id", columnList = "item_group_id"),
+        Index(name = "idx_mig_place_group_id", columnList = "place_group_id"),
         Index(name = "idx_mig_member_id_role_id", columnList = "member_id, role_id"),
     ]
 )
-class MemberItemGroup(
-    itemGroup: ItemGroup,
+class MemberPlaceGroup(
+    placeGroup: PlaceGroup,
     member: Member,
     role: Role,
 ) : BaseEntity("MR") {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_group_id", nullable = false)
-    var itemGroup: ItemGroup = itemGroup
+    @JoinColumn(name = "place_group_id", nullable = false)
+    var placeGroup: PlaceGroup = placeGroup
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
