@@ -16,11 +16,6 @@ spring:
         order_inserts: true
         order_deletes: true
         order_updates: true
-        batch_versioned_data: true
-        # 추가 최적화
-        connection:
-          provider_disables_autocommit: true
-
   datasource:
     url: jdbc:postgresql://${DB_HOST}:5432/crimson
     driver-class-name: org.postgresql.Driver
