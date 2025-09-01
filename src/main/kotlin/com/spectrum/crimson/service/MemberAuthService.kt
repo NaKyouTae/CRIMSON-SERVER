@@ -49,12 +49,13 @@ class MemberAuthService(
         this.checkDuplicatedMemberUnique(dto)
 
         val encryptedPassword = passwordEncoder.encode(dto.password)
+        val regPhone = dto.phone.replace(Regex("[^0-9]"), "")
 
         return memberRepository.save(
             Member(
                 name = dto.name,
                 email = dto.email,
-                phone = dto.phone,
+                phone = regPhone,
                 password = encryptedPassword,
                 status = MemberStatus.ACTIVE,
                 deletedAt = null,

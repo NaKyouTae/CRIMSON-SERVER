@@ -1,7 +1,7 @@
 package com.spectrum.crimson.domain.model
 
 import com.spectrum.crimson.domain.entity.Member
-import com.spectrum.crimson.domain.entity.MemberRole
+import com.spectrum.crimson.domain.entity.MemberItemGroup
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -9,11 +9,10 @@ import kotlin.collections.map
 
 data class CrimsonMemberDetail(
     private val member: Member,
-    private val roles: List<MemberRole>,
 ) : UserDetails {
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        return roles.map { SimpleGrantedAuthority(it.role.name.name) }
+        return emptyList()
     }
 
     override fun getPassword(): String {

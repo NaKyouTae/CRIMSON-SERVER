@@ -117,7 +117,7 @@ databaseChangeLog:
             tableName: role
 
         - createTable:
-            tableName: member_role
+            tableName: member_item_group
             columns:
               - column:
                   name: id
@@ -130,6 +130,11 @@ databaseChangeLog:
                   type: BIGSERIAL
                   constraints:
                     unique: true
+                    nullable: false
+              - column:
+                  name: item_group_id
+                  type: VARCHAR(28)
+                  constraints:
                     nullable: false
               - column:
                   name: member_id
@@ -154,20 +159,73 @@ databaseChangeLog:
         - createIndex:
             columns:
               - column:
-                  name: member_id
-            indexName: idx_member_role_member_id
-            tableName: member_role
-        - createIndex:
-            columns:
-              - column:
-                  name: role_id
-            indexName: idx_member_role_role_id
-            tableName: member_role
+                  name: item_group_id
+            indexName: idx_member_item_group_item_group_id
+            tableName: member_item_group
         - createIndex:
             columns:
               - column:
                   name: member_id
+            indexName: idx_member_item_group_member_id
+            tableName: member_item_group
+        - createIndex:
+            columns:
               - column:
                   name: role_id
-            indexName: idx_member_role_member_id_role_id
-            tableName: member_role
+            indexName: idx_member_item_group_role_id
+            tableName: member_item_group
+        - createIndex:
+            columns:
+              - column:
+                  name: member_id
+              - column:
+                  name: role_id
+            indexName: idx_member_item_group_member_id_role_id
+            tableName: member_item_group
+
+        - createTable:
+            tableName: item_group
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(28)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: idx
+                  type: BIGSERIAL
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            columns:
+              - column:
+                  name: status
+            indexName: idx_item_group_status
+            tableName: item_group

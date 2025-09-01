@@ -23,7 +23,7 @@ class MemberDetailsService(
 
         if(foundMember.isPresent) {
             val member = foundMember.get()
-            return CrimsonMemberDetail(member, member.roles)
+            return CrimsonMemberDetail(member)
         }
 
         throw CrimsonException(MsgKOR.NOT_FOUND_USER.message)

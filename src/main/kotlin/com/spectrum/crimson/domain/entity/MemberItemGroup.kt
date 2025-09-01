@@ -9,17 +9,24 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(
-    name = "member_role",
+    name = "member_item_group",
     indexes = [
-        Index(name = "idx_member_role_member_id", columnList = "member_id"),
-        Index(name = "idx_member_role_role_id", columnList = "role_id"),
-        Index(name = "idx_member_role_member_id_role_id", columnList = "member_id, role_id"),
+        Index(name = "idx_member_item_group_member_id", columnList = "member_id"),
+        Index(name = "idx_member_item_group_role_id", columnList = "role_id"),
+        Index(name = "idx_member_item_group_item_group_id", columnList = "item_group_id"),
+        Index(name = "idx_member_item_group_member_id_role_id", columnList = "member_id, role_id"),
     ]
 )
-class MemberRole(
+class MemberItemGroup(
+    itemGroup: ItemGroup,
     member: Member,
     role: Role,
 ) : BaseEntity("MR") {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_group_id", nullable = false)
+    var itemGroup: ItemGroup = itemGroup
+        protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
