@@ -6,15 +6,19 @@ import jakarta.persistence.Index
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import jakarta.persistence.UniqueConstraint
 
 @Entity
 @Table(
     name = "member_item_group",
+    uniqueConstraints = [
+        UniqueConstraint(name = "uq_mig_member_item_group_role", columnNames = ["member_id", "item_group_id", "role_id"])
+    ],
     indexes = [
-        Index(name = "idx_member_item_group_member_id", columnList = "member_id"),
-        Index(name = "idx_member_item_group_role_id", columnList = "role_id"),
-        Index(name = "idx_member_item_group_item_group_id", columnList = "item_group_id"),
-        Index(name = "idx_member_item_group_member_id_role_id", columnList = "member_id, role_id"),
+        Index(name = "idx_mig_member_id", columnList = "member_id"),
+        Index(name = "idx_mig_role_id", columnList = "role_id"),
+        Index(name = "idx_mig_item_group_id", columnList = "item_group_id"),
+        Index(name = "idx_mig_member_id_role_id", columnList = "member_id, role_id"),
     ]
 )
 class MemberItemGroup(

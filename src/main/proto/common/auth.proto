@@ -2,12 +2,11 @@ syntax = "proto3";
 
 import "dto.proto";
 
-package com.spectrum.crimson.proto;
+package com.spectrum.crimson.proto.common;
 
 option java_multiple_files = true;
-option java_package = "com.spectrum.crimson.proto";
+option java_package = "com.spectrum.crimson.proto.common";
 option java_outer_classname = "AuthProto";
-
 
 message MemberSignInRequest {
   string email = 1;

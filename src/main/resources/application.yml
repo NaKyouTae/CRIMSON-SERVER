@@ -22,6 +22,10 @@ spring:
     redis:
       host: ${REDIS_HOST}
       port: 6379
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/init/data.sql
 
 liquibase:
   should-run: ${LIQUIBASE_RUN}

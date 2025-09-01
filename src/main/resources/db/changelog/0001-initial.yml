@@ -100,6 +100,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: permissions
+                  type: jsonb
+                  defaultValue: '{}'
+                  constraints:
+                    nullable: false
+              - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
@@ -115,6 +121,7 @@ databaseChangeLog:
                   name: name
             indexName: idx_role_name
             tableName: role
+            unique: true
 
         - createTable:
             tableName: member_item_group
@@ -160,28 +167,40 @@ databaseChangeLog:
             columns:
               - column:
                   name: item_group_id
-            indexName: idx_member_item_group_item_group_id
+            indexName: idx_mig_item_group_id
             tableName: member_item_group
         - createIndex:
             columns:
               - column:
                   name: member_id
-            indexName: idx_member_item_group_member_id
+            indexName: idx_mig_member_id
             tableName: member_item_group
         - createIndex:
             columns:
               - column:
                   name: role_id
-            indexName: idx_member_item_group_role_id
+            indexName: idx_mig_role_id
             tableName: member_item_group
         - createIndex:
             columns:
               - column:
                   name: member_id
               - column:
-                  name: role_id
-            indexName: idx_member_item_group_member_id_role_id
+                  name: item_group_id
+            indexName: ux_mig_member_id_item_group_id
             tableName: member_item_group
+            unique: true
+        - createIndex:
+            columns:
+              - column:
+                  name: member_id
+              - column:
+                  name: item_group_id
+              - column:
+                  name: role_id
+            indexName: ux_mig_member_item_group_role
+            tableName: member_item_group
+            unique: true
 
         - createTable:
             tableName: item_group

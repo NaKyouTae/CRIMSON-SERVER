@@ -2,6 +2,7 @@ package com.spectrum.crimson.config.resolver
 
 import com.spectrum.crimson.common.utils.JwtTokenProvider
 import com.spectrum.crimson.config.resolver.model.AccessToken
+import com.spectrum.crimson.domain.model.AccessTokenInfo
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -31,6 +32,6 @@ class AccessTokenArgumentResolver(
         // JWT 파싱해서 userId, type 추출
         val claims = jwtTokenProvider.parseClaims(token)
         val id = claims["id"] as? String ?: ""
-        return id
+        return AccessTokenInfo(id)
     }
 }

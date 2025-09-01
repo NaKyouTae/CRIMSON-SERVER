@@ -3,10 +3,10 @@ package com.spectrum.crimson.controller
 import com.spectrum.crimson.common.exception.CrimsonException
 import com.spectrum.crimson.domain.dto.MemberSignUpDto
 import com.spectrum.crimson.domain.dto.SignInRequestDto
-import com.spectrum.crimson.proto.MemberSignInRequest
-import com.spectrum.crimson.proto.MemberSignInResult
-import com.spectrum.crimson.proto.MemberSignUpRequest
-import com.spectrum.crimson.proto.MemberSignUpResult
+import com.spectrum.crimson.proto.common.MemberSignInRequest
+import com.spectrum.crimson.proto.common.MemberSignInResult
+import com.spectrum.crimson.proto.common.MemberSignUpRequest
+import com.spectrum.crimson.proto.common.MemberSignUpResult
 import com.spectrum.crimson.service.MemberAuthService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
@@ -41,13 +41,13 @@ class MemberAuthController(
             password = request.password,
         )
 
-        validateMemeberSignUpRequest(dto)
+        validateMemberSignUpRequest(dto)
 
         val member = memberAuthService.signUp(dto)
         return MemberSignUpResult.newBuilder().setId(member.id).setName(member.name).build()
     }
 
-    private fun validateMemeberSignUpRequest(dto: MemberSignUpDto) {
+    private fun validateMemberSignUpRequest(dto: MemberSignUpDto) {
         if(dto.name.isEmpty()) { throw CrimsonException("필수값인 name이 없습니다.") }
         if(dto.email.isEmpty()) { throw CrimsonException("필수값인 email이 없습니다.") }
         if(dto.phone.isEmpty()) { throw CrimsonException("필수값인 phone이 없습니다.") }
