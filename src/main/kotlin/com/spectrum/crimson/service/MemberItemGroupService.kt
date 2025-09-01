@@ -10,6 +10,10 @@ class MemberItemGroupService(
     private val memberItemGroupRepository: MemberItemGroupRepository,
 ) {
 
+    fun isMemberInGroup(memberId: String, itemGroupId: String): Boolean {
+        return memberItemGroupRepository.findAllByMemberIdAndItemGroupId(memberId, itemGroupId).isPresent
+    }
+
     fun createMemberItemGroup(dto: MemberItemGroupCreateDto): MemberItemGroup {
         val memberItemGroup = MemberItemGroup(
             itemGroup = dto.itemGroup,

@@ -22,3 +22,11 @@ message ItemGroupCreateRequest {
 message ItemGroupCreateResponse {
   string id = 1;
 }
+
+message ItemGroupResult {
+  ItemGroup group = 1;
+}
+
+message ItemGroupListResult {
+  repeated ItemGroup groups = 1;
+}

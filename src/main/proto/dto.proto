@@ -10,3 +10,17 @@ message Token {
   string access_token = 1;
   string refresh_token = 2;
 }
+
+message ItemGroup {
+  enum ItemGroupStatus {
+    PUBLIC = 0;
+    PRIVATE = 1;
+  }
+
+  string id = 1;
+  ItemGroupStatus status = 2;
+  string description = 3;
+
+  uint64 created_at = 98;
+  uint64 updated_at = 99;
+}
