@@ -38,24 +38,24 @@ class PlaceGroupService(
     }
 
 //    @Transactional(readOnly = true)
-//    fun getItemGroups(memberId: String): List<ItemGroup> {
-//        val member = memberService.findByMemberWithItemGroups(memberId)
-//        val memberItemGroup = member.memberItemGroups
-//        val itemGroups = memberItemGroup.map { it.itemGroup }
+//    fun getPlaceGroups(memberId: String): List<PlaceGroup> {
+//        val member = memberService.findByMemberWithPlaceGroups(memberId)
+//        val memberPlaceGroup = member.memberPlaceGroups
+//        val itemGroups = memberPlaceGroup.map { it.placeGroup }
 //
 //        return itemGroups
 //    }
-
+//
 //    @Transactional(readOnly = true)
-//    fun getItemGroup(memberId: String, itemGroupId: String): ItemGroup {
-//        val isMemberInGroup = memberItemGroupService.isMemberInGroup(memberId, itemGroupId)
+//    fun getItemGroup(memberId: String, itemGroupId: String): PlaceGroup {
+//        val isMemberInGroup = memberPlaceGroupService.isMemberInGroup(memberId, itemGroupId)
 //
 //        if (!isMemberInGroup) {
-//            throw CrimsonException(MsgKOR.UNAUTHORIZED_ITEM_GROUP_ACCESS.message)
+//            throw CrimsonException(MsgKOR.UNAUTHORIZED_PLACE_GROUP_ACCESS.message)
 //        }
 //
-//        return itemGroupRepository.findById(itemGroupId)
-//            .orElseThrow { throw CrimsonException(MsgKOR.NOT_FOUND_ITEM_GROUP.message) }
+//        return placeGroupRepository.findById(itemGroupId)
+//            .orElseThrow { throw CrimsonException(MsgKOR.NOT_FOUND_PLACE_GROUP.message) }
 //    }
 
     @Transactional
