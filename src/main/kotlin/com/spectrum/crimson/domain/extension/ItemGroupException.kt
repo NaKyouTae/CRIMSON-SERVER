@@ -8,7 +8,7 @@ fun PlaceGroup.toProto(): com.spectrum.crimson.proto.PlaceGroup {
 
     builder.setId(this.id)
     builder.setStatus(com.spectrum.crimson.proto.PlaceGroup.PlaceGroupStatus.valueOf(this.status.name))
-    builder.setDescription(this.description)
+    builder.setDescription(this.memo)
     builder.setCreatedAt(TimeUtil.toEpochMilli(this.createdAt))
     builder.setUpdatedAt(TimeUtil.toEpochMilli(this.updatedAt))
 

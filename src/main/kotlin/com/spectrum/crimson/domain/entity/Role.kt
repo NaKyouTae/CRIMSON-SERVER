@@ -2,6 +2,7 @@ package com.spectrum.crimson.domain.entity
 
 import com.spectrum.crimson.common.converter.RolePermissionsJsonbConverter
 import com.spectrum.crimson.domain.enums.RoleName
+import com.spectrum.crimson.domain.model.RolePermissions
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity

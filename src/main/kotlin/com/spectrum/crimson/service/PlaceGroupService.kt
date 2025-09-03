@@ -60,12 +60,14 @@ class PlaceGroupService(
 
     @Transactional
     fun createPlaceGroup(dto: PlaceGroupCreateDto): PlaceGroup {
-        val member = memberService.getMember(dto.memberId) ?: throw CrimsonException(MsgKOR.NOT_FOUND_USER.message)
+        val member = memberService.getMember(dto.memberId)
 
         val placeGroup = PlaceGroup(
             name = dto.name,
+            category = dto.category,
             status = dto.status,
-            description = dto.description,
+            memo = dto.memo,
+            link = dto.link,
         )
         val captainRole = roleService.getRoleByName(RoleName.CAPTAIN)
         val createdPlaceGroup = placeGroupRepository.save(placeGroup)

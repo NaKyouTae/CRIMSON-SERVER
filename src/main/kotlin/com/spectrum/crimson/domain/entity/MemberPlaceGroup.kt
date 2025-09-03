@@ -25,7 +25,7 @@ class MemberPlaceGroup(
     placeGroup: PlaceGroup,
     member: Member,
     role: Role,
-) : BaseEntity("MR") {
+) : BaseEntity("MP") {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_group_id", nullable = false)

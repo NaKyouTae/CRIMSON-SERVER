@@ -228,7 +228,17 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: description
+                  name: category
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: memo
+                  type: TEXT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: link
                   type: TEXT
                   constraints:
                     nullable: true

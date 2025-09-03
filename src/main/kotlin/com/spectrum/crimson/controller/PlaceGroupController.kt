@@ -2,6 +2,7 @@ package com.spectrum.crimson.controller
 
 import com.spectrum.crimson.config.resolver.model.AccessToken
 import com.spectrum.crimson.domain.dto.PlaceGroupCreateDto
+import com.spectrum.crimson.domain.enums.PlaceGroupCategory
 import com.spectrum.crimson.domain.enums.PlaceGroupStatus
 import com.spectrum.crimson.domain.extension.toProto
 import com.spectrum.crimson.domain.model.AccessTokenInfo
@@ -47,7 +48,9 @@ class PlaceGroupController(
         val placeGroupDto = PlaceGroupCreateDto(
             name = request.name,
             status = PlaceGroupStatus.valueOf(request.status.name),
-            description = request.description,
+            category = PlaceGroupCategory.valueOf(request.category.name),
+            memo = request.memo,
+            link = request.link,
             memberId = tokenInfo.id,
         )
 

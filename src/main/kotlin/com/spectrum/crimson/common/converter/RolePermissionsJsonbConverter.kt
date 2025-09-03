@@ -3,7 +3,7 @@ package com.spectrum.crimson.common.converter
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.spectrum.crimson.domain.entity.RolePermissions
+import com.spectrum.crimson.domain.model.RolePermissions
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

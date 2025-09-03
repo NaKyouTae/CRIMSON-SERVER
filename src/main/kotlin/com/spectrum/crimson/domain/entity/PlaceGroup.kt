@@ -1,5 +1,6 @@
 package com.spectrum.crimson.domain.entity
 
+import com.spectrum.crimson.domain.enums.PlaceGroupCategory
 import com.spectrum.crimson.domain.enums.PlaceGroupStatus
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -18,8 +19,10 @@ import jakarta.persistence.Table
 class PlaceGroup(
     name: String,
     status: PlaceGroupStatus,
-    description: String?,
-): BaseEntity("IG") {
+    category: PlaceGroupCategory,
+    memo: String?,
+    link: String?,
+): BaseEntity("PG") {
     @Column(name = "name", length = 2048, nullable = false)
     var name: String = name
         protected set
@@ -29,7 +32,16 @@ class PlaceGroup(
     var status: PlaceGroupStatus = status
         protected set
 
-    @Column(name = "description", columnDefinition = "TEXT", nullable = true)
-    var description: String? = description
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 32, nullable = false)
+    var category: PlaceGroupCategory = category
+        protected set
+
+    @Column(name = "memo", columnDefinition = "TEXT", nullable = true)
+    var memo: String? = memo
+        protected set
+
+    @Column(name = "link", columnDefinition = "TEXT", nullable = true)
+    var link: String? = link
         protected set
 }

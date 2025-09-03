@@ -1,4 +1,4 @@
-package com.spectrum.crimson.domain.entity
+package com.spectrum.crimson.domain.model
 
 import jakarta.persistence.Embeddable
 
