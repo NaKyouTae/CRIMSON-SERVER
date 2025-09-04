@@ -12,18 +12,26 @@ import jakarta.persistence.Table
 @Table(
     name = "place",
     indexes = [
-        Index(name = "idx_place_group_status", columnList = "status"),
+        Index(name = "idx_place_status", columnList = "status"),
+        Index(name = "idx_place_location_id", columnList = "location_id"),
+//        Index(name = "idx_place_name", columnList = "name"), // TEXT INDEX 필요
     ]
 )
 class Place(
+    locationId: String,
     name: String,
     status: PlaceGroupStatus,
+    category: PlaceGroupStatus,
+    categoryName: String,
+    addressName: String,
+    phone: String,
+    url: String,
     lng: String,
     lat: String,
 ): BaseEntity("PL") {
 
-    @Column(name = "placa_id", length = 32, nullable = false)
-    var placeLocationId: String = placeLocationId
+    @Column(name = "location_id", length = 32, nullable = false)
+    var locationId: String = locationId
         protected set
 
     @Column(name = "name", length = 2048, nullable = false)

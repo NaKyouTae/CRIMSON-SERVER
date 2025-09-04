@@ -63,4 +63,4 @@ management:
         include: info, health, prometheus, httptrace, metrics
   metrics:
     tags:
-      application: taghere-api
+      application: crimson-api

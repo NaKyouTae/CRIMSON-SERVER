@@ -18,11 +18,11 @@ services:
     image: postgres:16-alpine
     container_name: postgres
     env_file:
-      - docker-compose.env
+      - ./docker-compose.env
     environment:
       POSTGRES_DB: crimson
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: "123456789a"
     ports:
       - "5432:5432"
     volumes:

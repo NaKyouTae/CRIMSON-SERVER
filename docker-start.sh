@@ -24,7 +24,7 @@ fi
 
 # 빌드된 이미지 확인
 echo "📋 빌드된 이미지 확인:"
-docker images | grep taghere
+docker images | grep crimson
 
 # Docker Compose 실행
 echo ""

@@ -33,7 +33,7 @@ class PlaceGroup(
         protected set
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 32, nullable = false)
+    @Column(name = "category", length = 32, nullable = false)
     var category: PlaceGroupCategory = category
         protected set
 

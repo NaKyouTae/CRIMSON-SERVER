@@ -258,3 +258,91 @@ databaseChangeLog:
                   name: status
             indexName: idx_place_group_status
             tableName: place_group
+
+        - createTable:
+            tableName: place
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(28)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: idx
+                  type: BIGSERIAL
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: location_id
+                  type: VARCHAR(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_name
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_name
+                  type: VARCHAR(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lng
+                  type: VARCHAR(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lat
+                  type: VARCHAR(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            columns:
+              - column:
+                  name: status
+            indexName: idx_place_status
+            tableName: place
+        - createIndex:
+            columns:
+              - column:
+                  name: location_id
+            indexName: idx_place_location_id
+            tableName: place
