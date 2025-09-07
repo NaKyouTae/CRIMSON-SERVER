@@ -3,8 +3,8 @@ package com.spectrum.crimson.controller
 import com.spectrum.crimson.common.exception.CrimsonException
 import com.spectrum.crimson.domain.dto.MemberSignUpDto
 import com.spectrum.crimson.domain.dto.SignInRequestDto
-import com.spectrum.crimson.proto.common.MemberSignInRequest
-import com.spectrum.crimson.proto.common.MemberSignInResult
+import com.spectrum.crimson.proto.common.MemberLoginRequest
+import com.spectrum.crimson.proto.common.MemberLoginResult
 import com.spectrum.crimson.proto.common.MemberSignUpRequest
 import com.spectrum.crimson.proto.common.MemberSignUpResult
 import com.spectrum.crimson.service.MemberAuthService
@@ -20,8 +20,8 @@ class MemberAuthController(
     private val memberAuthService: MemberAuthService,
 ) {
 
-    @PostMapping("/signin")
-    fun signIn(@Valid @RequestBody request: MemberSignInRequest): MemberSignInResult {
+    @PostMapping("/login")
+    fun signIn(@Valid @RequestBody request: MemberLoginRequest): MemberLoginResult {
         val signInDto = SignInRequestDto(
             email = request.email,
             password = request.password,
@@ -29,10 +29,10 @@ class MemberAuthController(
 
         val token = memberAuthService.signIn(signInDto)
 
-        return MemberSignInResult.newBuilder().setToken(token.toProto()).build()
+        return MemberLoginResult.newBuilder().setToken(token.toProto()).build()
     }
 
-    @PostMapping("/signup")
+    @PostMapping
     fun signUp(@Valid @RequestBody request: MemberSignUpRequest): MemberSignUpResult {
         val dto = MemberSignUpDto(
             name = request.name,

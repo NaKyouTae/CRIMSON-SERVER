@@ -7,8 +7,11 @@ fun PlaceGroup.toProto(): com.spectrum.crimson.proto.PlaceGroup {
     val builder = com.spectrum.crimson.proto.PlaceGroup.newBuilder()
 
     builder.setId(this.id)
+    builder.setName(this.name)
     builder.setStatus(com.spectrum.crimson.proto.PlaceGroup.PlaceGroupStatus.valueOf(this.status.name))
-    builder.setDescription(this.memo)
+    builder.setCategory(com.spectrum.crimson.proto.PlaceGroup.PlaceGroupCategory.valueOf(this.category.name))
+    builder.setMemo(this.memo)
+    builder.setLink(this.link)
     builder.setCreatedAt(TimeUtil.toEpochMilli(this.createdAt))
     builder.setUpdatedAt(TimeUtil.toEpochMilli(this.updatedAt))
 

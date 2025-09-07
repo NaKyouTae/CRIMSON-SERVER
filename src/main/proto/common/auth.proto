@@ -8,12 +8,12 @@ option java_multiple_files = true;
 option java_package = "com.spectrum.crimson.proto.common";
 option java_outer_classname = "AuthProto";
 
-message MemberSignInRequest {
+message MemberLoginRequest {
   string email = 1;
   string password = 2;
 }
 
-message MemberSignInResult {
+message MemberLoginResult {
   Token token = 1;
 }
 
