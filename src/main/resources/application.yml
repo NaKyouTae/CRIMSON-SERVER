@@ -64,3 +64,8 @@ management:
   metrics:
     tags:
       application: crimson-api
+
+kakao:
+  api:
+    rest-api-key: d8b2a3d2c19bfe33c54c19c015ea2726
+    base-url: https://dapi.kakao.com
