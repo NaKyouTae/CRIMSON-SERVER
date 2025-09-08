@@ -12,7 +12,6 @@ import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
-import org.springframework.web.util.UriComponentsBuilder
 
 /**
  * 카카오 로컬 API 키워드 검색 포트의 구현체
@@ -86,39 +85,41 @@ class KakaoSearchByKeywordPortImpl(
      * @return 완성된 API URL
      */
     private fun buildSearchUrl(request: KakaoSearchRequest): String {
-        val builder = UriComponentsBuilder
-            .fromUriString("${kakaoApiConfig.getBaseUrl()}$SEARCH_ENDPOINT")
-            .queryParam("query", request.query)
-            .queryParam("page", request.page)
-            .queryParam("size", request.size)
+        val baseUrl = "${kakaoApiConfig.getBaseUrl()}$SEARCH_ENDPOINT"
+        val queryParams = mutableListOf<String>()
+        
+        // 필수 파라미터들 추가
+        queryParams.add("query=${request.query}")
+        queryParams.add("page=${request.page}")
+        queryParams.add("size=${request.size}")
         
         // 선택적 파라미터들 추가
         request.x?.let { 
-            builder.queryParam("x", it)
+            queryParams.add("x=$it")
             logger.debug("X 좌표 추가: {}", it)
         }
         request.y?.let { 
-            builder.queryParam("y", it)
+            queryParams.add("y=$it")
             logger.debug("Y 좌표 추가: {}", it)
         }
         request.radius?.let { 
-            builder.queryParam("radius", it)
+            queryParams.add("radius=$it")
             logger.debug("반경 추가: {}", it)
         }
         request.sort.takeIf { it != "accuracy" }?.let { 
-            builder.queryParam("sort", it)
+            queryParams.add("sort=$it")
             logger.debug("정렬 방식 추가: {}", it)
         }
         request.categoryGroupCode?.let { 
-            builder.queryParam("category_group_code", it)
+            queryParams.add("category_group_code=$it")
             logger.debug("카테고리 그룹 코드 추가: {}", it)
         }
         request.rect?.let { 
-            builder.queryParam("rect", it)
+            queryParams.add("rect=$it")
             logger.debug("지역 제한 추가: {}", it)
         }
         
-        val finalUrl = builder.encode().toUriString()
+        val finalUrl = "$baseUrl?${queryParams.joinToString("&")}"
         logger.debug("최종 URL: {}", finalUrl)
         
         return finalUrl
