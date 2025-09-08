@@ -17,12 +17,17 @@ import jakarta.persistence.Table
     ]
 )
 class PlaceGroup(
+    icon: String,
     name: String,
     status: PlaceGroupStatus,
     category: PlaceGroupCategory,
     memo: String?,
     link: String?,
 ): BaseEntity("PG") {
+    @Column(name = "icon", length = 128, nullable = false)
+    var icon: String = icon
+        protected set
+
     @Column(name = "name", length = 2048, nullable = false)
     var name: String = name
         protected set

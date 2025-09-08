@@ -63,6 +63,7 @@ class PlaceGroupService(
         val member = memberService.getMember(dto.memberId)
 
         val placeGroup = PlaceGroup(
+            icon = dto.icon,
             name = dto.name,
             category = dto.category,
             status = dto.status,

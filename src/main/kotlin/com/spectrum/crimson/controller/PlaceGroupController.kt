@@ -46,6 +46,7 @@ class PlaceGroupController(
         @Valid @RequestBody request: PlaceGroupCreateRequest
     ): PlaceGroupCreateResponse {
         val placeGroupDto = PlaceGroupCreateDto(
+            icon = request.icon,
             name = request.name,
             status = PlaceGroupStatus.valueOf(request.status.name),
             category = PlaceGroupCategory.valueOf(request.category.name),

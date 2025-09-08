@@ -218,6 +218,11 @@ databaseChangeLog:
                     unique: true
                     nullable: false
               - column:
+                  name: icon
+                  type: VARCHAR(128)
+                  constraints:
+                    nullable: false
+              - column:
                   name: name
                   type: VARCHAR(2048)
                   constraints:

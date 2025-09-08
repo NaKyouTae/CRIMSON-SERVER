@@ -29,6 +29,7 @@ message PlaceGroup {
   string memo = 5;
   string link = 6;
 
+  string icon = 97;
   uint64 created_at = 98;
   uint64 updated_at = 99;
 }

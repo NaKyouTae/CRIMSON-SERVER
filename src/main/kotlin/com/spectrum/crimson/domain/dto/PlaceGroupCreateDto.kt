@@ -4,6 +4,7 @@ import com.spectrum.crimson.domain.enums.PlaceGroupCategory
 import com.spectrum.crimson.domain.enums.PlaceGroupStatus
 
 data class PlaceGroupCreateDto(
+    val icon: String,
     val name: String,
     val status: PlaceGroupStatus,
     val category: PlaceGroupCategory,

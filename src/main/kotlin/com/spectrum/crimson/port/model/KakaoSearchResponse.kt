@@ -1,6 +1,8 @@
 package com.spectrum.crimson.port.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.spectrum.crimson.proto.place.KakaoPlaceListResult
+import com.spectrum.crimson.proto.KakaoPlace
 
 /**
  * 카카오 로컬 API 키워드 검색 응답 모델
@@ -67,3 +69,31 @@ data class Document(
     @JsonProperty("distance")
     val distance: String? // 중심좌표까지의 거리 (미터)
 )
+
+/**
+ * KakaoSearchResponse를 KakaoPlaceListResult로 변환하는 확장 함수
+ */
+fun KakaoSearchResponse.toProto(): KakaoPlaceListResult {
+    return KakaoPlaceListResult.newBuilder()
+        .addAllPlaces(documents.map { it.toProto() })
+        .build()
+}
+
+/**
+ * Document를 KakaoPlace로 변환하는 확장 함수
+ */
+fun Document.toProto(): KakaoPlace {
+    return KakaoPlace.newBuilder()
+        .setId(id)
+        .setName(placeName)
+        .setCategoryName(categoryName)
+        .setCategoryGroupCode(categoryGroupCode)
+        .setCategoryGroupName(categoryGroupName)
+        .setPhone(phone)
+        .setAddressName(addressName)
+        .setRoadAddressName(roadAddressName)
+        .setX(x)
+        .setY(y)
+        .setUrl(placeUrl)
+        .build()
+}
