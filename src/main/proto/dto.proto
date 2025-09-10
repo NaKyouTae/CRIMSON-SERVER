@@ -6,6 +6,16 @@ option java_multiple_files = true;
 option java_package = "com.spectrum.crimson.proto";
 option java_outer_classname = "DtoProto";
 
+message Member {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+
+  uint64 created_at = 98;
+  uint64 updated_at = 99;
+}
+
 message Token {
   string access_token = 1;
   string refresh_token = 2;
@@ -34,6 +44,12 @@ message PlaceGroup {
   uint64 updated_at = 99;
 }
 
+message KakaoPlaceMeta {
+  uint32 total_count = 1;
+  uint32 pageableCount = 2;
+  bool isEnd = 3;
+}
+
 message KakaoPlace {
   string id = 1;
   string name = 2;
@@ -46,4 +62,21 @@ message KakaoPlace {
   string x = 9;
   string y = 10;
   string url = 11;
+}
+
+message Place {
+  string id = 1;
+  string location_id = 2;
+  string name = 3;
+  string category_name = 4;
+  string address_name = 5;
+  string phone = 6;
+  string lat = 7;
+  string lng = 8;
+  string url = 9;
+
+  Member member = 50;
+
+  uint64 created_at = 98;
+  uint64 updated_at = 99;
 }

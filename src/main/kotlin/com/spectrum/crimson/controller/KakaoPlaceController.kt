@@ -5,6 +5,7 @@ import com.spectrum.crimson.port.model.KakaoSearchRequest
 import com.spectrum.crimson.port.model.KakaoSearchResponse
 import com.spectrum.crimson.port.model.toProto
 import com.spectrum.crimson.proto.place.KakaoPlaceListResult
+import com.spectrum.crimson.service.KakaoPlaceService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/places")
 class KakaoPlaceController(
+    private val kakaoPlaceService: KakaoPlaceService,
     private val kakaoSearchByKeywordPort: KakaoSearchByKeywordPort
 ) {
 
@@ -28,13 +30,16 @@ class KakaoPlaceController(
      * @return 검색 결과
      */
     @GetMapping("/keyword")
-    fun searchByKeyword(
+    suspend fun searchByKeyword(
         @RequestParam query: String,
         @RequestParam(defaultValue = "1") page: Int,
         @RequestParam(defaultValue = "15") size: Int
     ): KakaoPlaceListResult {
-        val result = kakaoSearchByKeywordPort.searchByKeyword(query, page, size)
-        return KakaoPlaceListResult.newBuilder().addAllPlaces(result.documents.map { it.toProto() }).build()
+        val result = kakaoPlaceService.searchByKeyword(query, page, size)
+        return KakaoPlaceListResult.newBuilder()
+            .addAllPlaces(result.documents.map { it.toProto() })
+            .setMeta(result.meta.toProto())
+            .build()
     }
 
     /**

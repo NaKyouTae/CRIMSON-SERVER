@@ -35,7 +35,7 @@ class PlaceGroupController(
     }
 
     @GetMapping
-    fun getPlaceGroups(@AccessToken tokenInfo: AccessTokenInfo): PlaceGroupListResult {
+    fun listPlaceGroups(@AccessToken tokenInfo: AccessTokenInfo): PlaceGroupListResult {
         val placeGroups = placeGroupService.getPlaceGroups(tokenInfo.id)
         return PlaceGroupListResult.newBuilder().addAllGroups(placeGroups.placeGroups).build()
     }

@@ -11,6 +11,7 @@ import com.spectrum.crimson.domain.extension.toProto
 import com.spectrum.crimson.domain.repository.PlaceGroupRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.String
 
 @Service
 class PlaceGroupService(

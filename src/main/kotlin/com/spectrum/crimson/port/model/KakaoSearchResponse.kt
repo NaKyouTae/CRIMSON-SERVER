@@ -3,6 +3,7 @@ package com.spectrum.crimson.port.model
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.spectrum.crimson.proto.place.KakaoPlaceListResult
 import com.spectrum.crimson.proto.KakaoPlace
+import com.spectrum.crimson.proto.KakaoPlaceMeta
 
 /**
  * 카카오 로컬 API 키워드 검색 응답 모델
@@ -76,6 +77,15 @@ data class Document(
 fun KakaoSearchResponse.toProto(): KakaoPlaceListResult {
     return KakaoPlaceListResult.newBuilder()
         .addAllPlaces(documents.map { it.toProto() })
+        .setMeta(meta.toProto())
+        .build()
+}
+
+fun Meta.toProto(): KakaoPlaceMeta {
+    return KakaoPlaceMeta.newBuilder()
+        .setTotalCount(this.totalCount)
+        .setPageableCount(this.pageableCount)
+        .setIsEnd(this.isEnd)
         .build()
 }
 

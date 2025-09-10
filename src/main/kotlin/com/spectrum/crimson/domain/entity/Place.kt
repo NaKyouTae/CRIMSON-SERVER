@@ -1,11 +1,15 @@
 package com.spectrum.crimson.domain.entity
 
 import com.spectrum.crimson.domain.enums.PlaceGroupStatus
+import com.spectrum.crimson.domain.enums.PlaceStatus
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
+import jakarta.persistence.FetchType
 import jakarta.persistence.Index
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
@@ -14,20 +18,22 @@ import jakarta.persistence.Table
     indexes = [
         Index(name = "idx_place_status", columnList = "status"),
         Index(name = "idx_place_location_id", columnList = "location_id"),
+        Index(name = "idx_place_place_group_id", columnList = "place_group_id"),
 //        Index(name = "idx_place_name", columnList = "name"), // TEXT INDEX 필요
     ]
 )
 class Place(
     locationId: String,
     name: String,
-    status: PlaceGroupStatus,
-    category: PlaceGroupStatus,
+    status: PlaceStatus,
     categoryName: String,
     addressName: String,
     phone: String,
     url: String,
     lng: String,
     lat: String,
+    placeGroup: PlaceGroup,
+    member: Member,
 ): BaseEntity("PL") {
 
     @Column(name = "location_id", length = 32, nullable = false)
@@ -40,12 +46,7 @@ class Place(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 32, nullable = false)
-    var status: PlaceGroupStatus = status
-        protected set
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category", length = 32, nullable = false)
-    var category: PlaceGroupStatus = category
+    var status: PlaceStatus = status
         protected set
 
     @Column(name = "category_name", columnDefinition = "TEXT", nullable = false)
@@ -70,5 +71,15 @@ class Place(
 
     @Column(name = "lat", length = 512, nullable = false)
     var lat: String = lat
+        protected set
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_group_id", nullable = false)
+    var placeGroup: PlaceGroup = placeGroup
+        protected set
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    var member: Member = member
         protected set
 }

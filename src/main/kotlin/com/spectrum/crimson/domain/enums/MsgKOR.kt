@@ -9,6 +9,7 @@ enum class MsgKOR(val message: String) {
     ALREADY_EXIST_EMAIL("이미 존재하는 이메일 입니다."),
     ALREADY_EXIST_PHONE("이미 존재하는 전화번호 입니다."),
     ALREADY_EXIST_NAME("이미 존재하는 이름 입니다."),
+    ALREADY_EXIST_PLACE_IN_PLACE_GROUP("해당 리스트에 이미 존재하는 장소 입니다."),
     INVALID_JWT_TOKEN("유효하지 않은 토큰입니다."),
     EXPIRED_JWT_TOKEN("만료된 JWT 토큰입니다."),
     UNSUPPORTED_JWT_TOKEN("지원하지 않는 JWT 토큰입니다."),

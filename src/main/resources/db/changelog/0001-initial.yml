@@ -295,11 +295,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: category
-                  type: VARCHAR(32)
-                  constraints:
-                    nullable: false
-              - column:
                   name: category_name
                   type: TEXT
                   constraints:
@@ -330,6 +325,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: place_group_id
+                  type: VARCHAR(28)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: member_id
+                  type: VARCHAR(28)
+                  constraints:
+                    nullable: false
+              - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
@@ -350,4 +355,10 @@ databaseChangeLog:
               - column:
                   name: location_id
             indexName: idx_place_location_id
+            tableName: place
+        - createIndex:
+            columns:
+              - column:
+                  name: place_group_id
+            indexName: idx_place_place_group_id
             tableName: place
